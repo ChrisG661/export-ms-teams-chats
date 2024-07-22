@@ -6,7 +6,7 @@ $ProgressPreference = "SilentlyContinue"
 # Enable TLSv1.2 for compatibility with older clients
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 
-$downloadURL = 'https://github.com/attituding/export-ms-teams-chats/archive/refs/heads/main.zip'
+$downloadURL = 'https://github.com/ChrisG661/export-ms-teams-chats/archive/refs/heads/main.zip'
 
 $extractedPath = "$([System.IO.Path]::GetTempPath())export-ms-teams-chats"
 $zipPath = "$extractedPath.zip"
@@ -15,7 +15,7 @@ Invoke-WebRequest -Uri $downloadURL -OutFile $zipPath
 Expand-Archive -LiteralPath $zipPath -DestinationPath $extractedPath -Force
 
 $innerFolderName = Get-ChildItem -LiteralPath $extractedPath -Name
-$out = "$(Get-Location)/out"
+$out = "$(Get-Location)/exported-chat"
 
 if ($IsMacOS -or $IsLinux) {
     pwsh -File "$extractedPath/$innerFolderName/Get-MicrosoftTeamsChat.ps1" -exportFolder $out
